@@ -20,7 +20,6 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
 
 	@Query("SELECT a FROM Article a ORDER BY a.date DESC")
 	public List<Article> sortByDate();
-	// By using pagination Page<Article> sortByDate(Pageable pageable);
 
 	@Query("SELECT a FROM Article a WHERE LOWER(a.titre) LIKE LOWER(CONCAT('%', :keyword, '%')) OR LOWER(a.texte) LIKE LOWER(CONCAT('%', :keyword, '%'))")
 	List<Article> searchByKeyword(@Param("keyword") String keyword);
