@@ -1,0 +1,7 @@
+ma.emsi.blog.service.impl.ArticleServiceImpl#deleteCommentaire(Lma/emsi/blog/model/Commentaire;)V
+==
+getId ma.emsi.blog.model.Article#getId()I
+getNombreCommentaire ma.emsi.blog.model.Article#getNombreCommentaire()I
+setNombreCommentaire ma.emsi.blog.model.Article#setNombreCommentaire(I)V
+findById ma.emsi.blog.service.impl.ArticleServiceImpl#findById(I)Lma/emsi/blog/model/Article;
+getArticle ma.emsi.blog.model.Commentaire#getArticle()Lma/emsi/blog/model/Article;

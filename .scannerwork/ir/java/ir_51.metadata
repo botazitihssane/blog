@@ -1,0 +1,11 @@
+ma.emsi.blog.controller.AuthController#authenticateUser(Lma/emsi/blog/request/LoginRequest;)LResponseEntity;
+null
+ma.emsi.blog.response.UserInfoResponse#<init>(ILjava/lang/String;Ljava/lang/String;)V
+ma.emsi.blog.response.UserInfoResponse#instance-init#
+==
+getUsername ma.emsi.blog.request.LoginRequest#getUsername()Ljava/lang/String;
+getEmail ma.emsi.blog.service.impl.UserDetailsImpl#getEmail()Ljava/lang/String;
+getPassword ma.emsi.blog.request.LoginRequest#getPassword()Ljava/lang/String;
+generateJwtCookie ma.emsi.blog.auth.JwtUtils#generateJwtCookie(Lma/emsi/blog/service/impl/UserDetailsImpl;)LResponseCookie;
+getUsername ma.emsi.blog.service.impl.UserDetailsImpl#getUsername()Ljava/lang/String;
+getId ma.emsi.blog.service.impl.UserDetailsImpl#getId()I

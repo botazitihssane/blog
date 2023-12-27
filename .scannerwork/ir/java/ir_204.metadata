@@ -1,0 +1,3 @@
+ma.emsi.blog.service.impl.ProprietaireServiceImpl#findById(I)Lma/emsi/blog/model/Proprietaire;
+==
+findById ma.emsi.blog.repository.ProprietaireRepository#findById(I)Lma/emsi/blog/model/Proprietaire;

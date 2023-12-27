@@ -1,0 +1,8 @@
+ma.emsi.blog.service.impl.ProprietaireServiceImpl#validateAndCheckUniqueness(Lma/emsi/blog/model/Proprietaire;)Z
+java.lang.RuntimeException#<init>(Ljava/lang/String;)V
+java.lang.RuntimeException#instance-init#
+==
+existsByUsername ma.emsi.blog.repository.UtilisateurRepository#existsByUsername(Ljava/lang/String;)Ljava/lang/Boolean;
+getEmail ma.emsi.blog.model.Utilisateur#getEmail()Ljava/lang/String;
+getUsername ma.emsi.blog.model.Utilisateur#getUsername()Ljava/lang/String;
+existsByEmail ma.emsi.blog.repository.UtilisateurRepository#existsByEmail(Ljava/lang/String;)Ljava/lang/Boolean;

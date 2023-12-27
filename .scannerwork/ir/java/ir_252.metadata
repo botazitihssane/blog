@@ -1,0 +1,3 @@
+ma.emsi.blog.controller.ProprietaireController#add(Lma/emsi/blog/model/Proprietaire;)LResponseEntity;
+==
+create ma.emsi.blog.service.ProprietaireService#create(Lma/emsi/blog/model/Proprietaire;)V

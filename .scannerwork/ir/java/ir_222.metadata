@@ -1,0 +1,3 @@
+ma.emsi.blog.service.impl.ArticleServiceImpl#findById(I)Lma/emsi/blog/model/Article;
+==
+findById ma.emsi.blog.repository.ArticleRepository#findById(I)Lma/emsi/blog/model/Article;

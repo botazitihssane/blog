@@ -1,0 +1,27 @@
+
+^ma.emsi.blog.service.impl.ProprietaireServiceImpl#findById(I)Lma/emsi/blog/model/Proprietaire;€
+v/C:/Users/Ihssane/Documents/Qualite/blogPersonnel/src/main/java/ma/emsi/blog/service/impl/ProprietaireServiceImpl.java; ;("1*–
+1<	 <(¸
+µ
+<	 <(4
+%0.ma.emsi.blog.repository.ProprietaireRepository"__id*m
+
+__unknown_file (Q*O3
+1ma.emsi.blog.service.impl.ProprietaireServiceImpl"
+proprietaireRepository–“
+<	 <(,%
+%1ma.emsi.blog.model.Proprietaire"[ma.emsi.blog.repository.ProprietaireRepository#findById(I)Lma/emsi/blog/model/Proprietaire;*R
+
+__unknown_file (6
+4
+%0.ma.emsi.blog.repository.ProprietaireRepository*"
+
+__unknown_file (
+""2findById(I)"3
+< <(-'
+%
+%1ma.emsi.blog.model.Proprietaire: 
+
+__unknown_file (
+""B53
+1ma.emsi.blog.service.impl.ProprietaireServiceImplH

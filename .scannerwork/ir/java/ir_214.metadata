@@ -1,0 +1,3 @@
+ma.emsi.blog.model.Proprietaire#<init>(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+==
+<init> ma.emsi.blog.model.Utilisateur#<init>(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
