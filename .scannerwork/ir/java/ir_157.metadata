@@ -1,0 +1,3 @@
+ma.emsi.blog.controller.CategorieController#findcategorie(I)LResponseEntity;
+==
+findById ma.emsi.blog.service.CategorieService#findById(I)Lma/emsi/blog/model/Categorie;

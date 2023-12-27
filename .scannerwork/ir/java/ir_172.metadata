@@ -1,0 +1,8 @@
+ma.emsi.blog.service.impl.UserDetailsImpl#build(Lma/emsi/blog/model/Utilisateur;)LUserDetails;
+ma.emsi.blog.service.impl.UserDetailsImpl#<init>(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+ma.emsi.blog.service.impl.UserDetailsImpl#instance-init#
+==
+getPassword ma.emsi.blog.model.Utilisateur#getPassword()Ljava/lang/String;
+getEmail ma.emsi.blog.model.Utilisateur#getEmail()Ljava/lang/String;
+getId ma.emsi.blog.model.Utilisateur#getId()I
+getUsername ma.emsi.blog.model.Utilisateur#getUsername()Ljava/lang/String;

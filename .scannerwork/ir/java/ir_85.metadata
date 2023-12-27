@@ -1,0 +1,14 @@
+ma.emsi.blog.service.impl.CommentaireServiceImpl#create(Lma/emsi/blog/model/Commentaire;)V
+ma.emsi.blog.model.Visiteur#<init>()V
+ma.emsi.blog.model.Visiteur#instance-init#
+==
+findByEmail ma.emsi.blog.repository.VisiteurRepository#findByEmail(Ljava/lang/String;)Lma/emsi/blog/model/Visiteur;
+setNom ma.emsi.blog.model.Visiteur#setNom(Ljava/lang/String;)V
+getNombreCommentaire ma.emsi.blog.model.Visiteur#getNombreCommentaire()I
+getVisiteur ma.emsi.blog.model.Commentaire#getVisiteur()Lma/emsi/blog/model/Visiteur;
+setNombreCommentaire ma.emsi.blog.model.Visiteur#setNombreCommentaire(I)V
+setVisiteur ma.emsi.blog.model.Commentaire#setVisiteur(Lma/emsi/blog/model/Visiteur;)V
+setEmail ma.emsi.blog.model.Visiteur#setEmail(Ljava/lang/String;)V
+getNom ma.emsi.blog.model.Visiteur#getNom()Ljava/lang/String;
+addCommentaire ma.emsi.blog.service.ArticleService#addCommentaire(Lma/emsi/blog/model/Commentaire;)V
+getEmail ma.emsi.blog.model.Visiteur#getEmail()Ljava/lang/String;

@@ -31,10 +31,10 @@ public class Article {
 	@Min(value = 0, message = "Nombre de commentaire ne peut pas etre négatif")
 	private int nombreCommentaire;
 	@ManyToOne
-	@NotBlank(message = "Categorie ne peut pas etre vide")
+	@NotNull(message = "Categorie ne peut pas etre vide")
 	private Categorie categorie;
 	@ManyToOne
-	@NotBlank(message = "Le proprietaire ne peut pas etre vide")
+	@NotNull(message = "Le proprietaire ne peut pas etre vide")
 	private Proprietaire user;
 
 	public int getId() {

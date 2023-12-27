@@ -31,28 +31,27 @@ public class ProprietaireController {
 		proprietaireService.create(p);
 		return ResponseEntity.noContent().build();
 	}
-	
-	@GetMapping(value = "/proprietaires", produces = { "application/json", "application/xml" }, consumes = {
-			"application/json", "application/xml" })
+
+	@GetMapping(value = "/proprietaires", produces = { "application/json", "application/xml" })
 	public ResponseEntity<List<Proprietaire>> findAll() {
 		List<Proprietaire> result = proprietaireService.findAll();
 		return ResponseEntity.ok().body(result);
 	}
-	
+
 	@GetMapping(value = "/proprietaire/id/{id}", produces = { "application/json", "application/xml" }, consumes = {
 			"application/json", "application/xml" })
 	public ResponseEntity<Proprietaire> findProprietaire(@PathVariable int id) {
 		Proprietaire result = proprietaireService.findById(id);
 		return ResponseEntity.ok().body(result);
 	}
-	
+
 	@PutMapping(value = "/proprietaire", produces = { "application/json", "application/xml" }, consumes = {
 			"application/json", "application/xml" })
 	public ResponseEntity<Void> update(@RequestBody Proprietaire p) {
 		proprietaireService.update(p);
 		return ResponseEntity.noContent().build();
 	}
-	
+
 	@DeleteMapping(value = "/proprietaire/{id}", produces = { "application/json", "application/xml" })
 	public ResponseEntity<Void> delete(@PathVariable int id) {
 		proprietaireService.delete(id);

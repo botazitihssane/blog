@@ -1,0 +1,3 @@
+ma.emsi.blog.service.impl.ArticleServiceImpl#sortByDate()Ljava/util/List;
+==
+sortByDate ma.emsi.blog.repository.ArticleRepository#sortByDate()Ljava/util/List;

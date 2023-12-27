@@ -1,0 +1,3 @@
+ma.emsi.blog.controller.CommentaireController#add(Lma/emsi/blog/model/Commentaire;)LResponseEntity;
+==
+create ma.emsi.blog.service.CommentaireService#create(Lma/emsi/blog/model/Commentaire;)V
