@@ -15,62 +15,88 @@ import org.springframework.test.context.junit4.SpringRunner;
 import ma.emsi.blog.model.Article;
 import ma.emsi.blog.model.Categorie;
 
-
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class ArticleRepositoryTest {
 
 	@Autowired
-    private ArticleRepository articleRepository;
+	private ArticleRepository articleRepository;
 
-    private Article testArticle;
+	private Article testArticle;
 
-    @Before
-    public void setUp() {
-        
-        Categorie categorie = new Categorie(1, "TestCategory");
-        testArticle = new Article();
-        articleRepository.save(testArticle);
-    }
+	@Before
+	public void setUp() {
+		Categorie categorie = new Categorie();
+		categorie.setId(1);
 
-    @Test
-    public void whenFindById_thenReturnArticle() {
-        Article found = articleRepository.findById(testArticle.getId());
-        assertNotNull("Article should not be null", found);
-        assertEquals("Article title should match", testArticle.getTitre(), found.getTitre());
-    }
+		testArticle = new Article();
+		testArticle.setTitre("Test Title");
+		testArticle.setTexte("Test Text");
+		testArticle.setDate(LocalDate.now());
+		testArticle.setNombreCommentaire(5);
+		testArticle.setCategorie(categorie);
+		articleRepository.save(testArticle);
+	}
 
-    @Test
-    public void whenFindByDate_thenReturnArticles() {
-        List<Article> articles = articleRepository.findByDate(testArticle.getDate());
-        assertFalse("Article list should not be empty", articles.isEmpty());
-        assertTrue("Article list should contain the test article", articles.contains(testArticle));
-    }
+	@Test
+	public void testFindByDate() {
+		List<Article> articles = articleRepository.findByDate(testArticle.getDate());
+		assertFalse(articles.isEmpty());
+		assertEquals(testArticle.getTitre(), articles.get(0).getTitre());
+	}
 
-    @Test
-    public void whenSortByComments_thenReturnSortedArticles() {
-        List<Article> articles = articleRepository.sortByComments();
-        assertFalse("Article list should not be empty", articles.isEmpty());
-    }
+	@Test
+	public void testFindById_existingId() {
+		Article found = articleRepository.findById(testArticle.getId());
+		assertNotNull(found);
+		assertEquals(testArticle.getId(), found.getId());
+	}
 
-    @Test
-    public void whenSortByDate_thenReturnSortedArticles() {
-        List<Article> articles = articleRepository.sortByDate();
-        assertFalse("Article list should not be empty", articles.isEmpty());
-       
-    }
+	@Test
+	public void testFindById_nonExistingId() {
+		Article notFound = articleRepository.findById(-1);
+		assertNull(notFound);
+	}
 
-    @Test
-    public void whenSearchByKeyword_thenReturnMatchingArticles() {
-        List<Article> articles = articleRepository.searchByKeyword("Test");
-        assertFalse("Article list should not be empty", articles.isEmpty());
-        assertTrue("Article list should contain the test article", articles.contains(testArticle));
-    }
+	@Test
+	public void testFindByDate_withArticles() {
+		LocalDate testDate = testArticle.getDate();
+		List<Article> articles = articleRepository.findByDate(testDate);
+		assertFalse(articles.isEmpty());
+		assertTrue(articles.stream().anyMatch(a -> a.getDate().equals(testDate)));
+	}
 
-    @Test
-    public void whenFindByCategory_thenReturnArticles() {
-        List<Article> articles = articleRepository.findByCategory(testArticle.getCategorie().getId());
-        assertFalse("Article list should not be empty", articles.isEmpty());
-        assertTrue("Article list should contain the test article", articles.contains(testArticle));
-    }
+	@Test
+	public void testFindByDate_noArticles() {
+		List<Article> articles = articleRepository.findByDate(LocalDate.of(2000, 1, 1));
+		assertTrue(articles.isEmpty());
+	}
+
+	@Test
+	public void testFindByCategory() {
+		List<Article> articles = articleRepository.findByCategory(testArticle.getCategorie().getId());
+		assertFalse(articles.isEmpty());
+		assertTrue(articles.stream().anyMatch(a -> a.getCategorie().getId() == testArticle.getCategorie().getId()));
+	}
+
+	@Test
+	public void testSearchByKeyword() {
+		List<Article> articles = articleRepository.searchByKeyword("Test");
+		assertFalse(articles.isEmpty());
+		assertTrue(articles.stream().anyMatch(a -> a.getTitre().contains("Test") || a.getTexte().contains("Test")));
+	}
+
+	@Test
+	public void testSortByComments() {
+		List<Article> sortedArticles = articleRepository.sortByComments();
+		assertFalse(sortedArticles.isEmpty());
+		assertTrue(sortedArticles.get(0).getNombreCommentaire() >= sortedArticles.get(1).getNombreCommentaire());
+	}
+
+	@Test
+	public void testSortByDate() {
+		List<Article> sortedArticles = articleRepository.sortByDate();
+		assertFalse(sortedArticles.isEmpty());
+		assertTrue(sortedArticles.get(0).getDate().compareTo(sortedArticles.get(1).getDate()) >= 0);
+	}
 }

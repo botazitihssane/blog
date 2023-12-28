@@ -54,21 +54,37 @@ public class WebSecurityConfig {
 		http.csrf(csrf -> csrf.disable())
 				.exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-				.authorizeHttpRequests(auth -> auth.requestMatchers("/blog/auth/**").permitAll()
-						.requestMatchers(HttpMethod.GET, "/blog/articles/**").permitAll()
-						.requestMatchers(HttpMethod.GET, "/blog/commentaires/**").permitAll()
-						.requestMatchers(HttpMethod.POST, "/blog/commentaire/**").permitAll()
-						.requestMatchers(HttpMethod.GET, "/blog/categories/**").permitAll()
-						.requestMatchers(HttpMethod.POST, "/blog/categorie/**").authenticated()
-						.requestMatchers(HttpMethod.POST, "/blog/article/**").authenticated()
-						.requestMatchers(HttpMethod.POST, "/blog/proprietaire/**").authenticated().anyRequest()
-						.authenticated());
+				.authorizeHttpRequests(auth -> auth.requestMatchers("/blog/**").permitAll());
 		http.authenticationProvider(authenticationProvider());
 
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
 		return http.build();
 	}
+
+	/*
+	 * @Bean public SecurityFilterChain filterChain(HttpSecurity http) throws
+	 * Exception { http.csrf(csrf -> csrf.disable()) .exceptionHandling(exception ->
+	 * exception.authenticationEntryPoint(unauthorizedHandler))
+	 * .sessionManagement(session ->
+	 * session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+	 * .authorizeHttpRequests(auth ->
+	 * auth.requestMatchers("/blog/auth/**").permitAll()
+	 * .requestMatchers(HttpMethod.GET, "/blog/articles/**").permitAll()
+	 * .requestMatchers(HttpMethod.GET, "/blog/commentaires/**").permitAll()
+	 * .requestMatchers(HttpMethod.POST, "/blog/commentaire/**").permitAll()
+	 * .requestMatchers(HttpMethod.GET, "/blog/categories/**").permitAll()
+	 * .requestMatchers(HttpMethod.POST, "/blog/categorie/**").authenticated()
+	 * .requestMatchers(HttpMethod.POST, "/blog/article/**").authenticated()
+	 * .requestMatchers(HttpMethod.POST,
+	 * "/blog/proprietaire/**").authenticated().anyRequest() .authenticated());
+	 * http.authenticationProvider(authenticationProvider());
+	 * 
+	 * http.addFilterBefore(authenticationJwtTokenFilter(),
+	 * UsernamePasswordAuthenticationFilter.class);
+	 * 
+	 * return http.build(); }
+	 */
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
