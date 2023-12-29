@@ -15,6 +15,7 @@
 	<description>Application de blog personnel</description>
 	<properties>
 		<java.version>17</java.version>
+		<sonar.coverage.exclusions>**/*Test.java,**/*Tests.java,**/*TestSuite.java</sonar.coverage.exclusions>
 	</properties>
 	<dependencies>
 		<dependency>

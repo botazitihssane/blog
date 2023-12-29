@@ -87,4 +87,9 @@ public class UserDetailsImpl implements UserDetails {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, username, email, password);
+	}
 }
