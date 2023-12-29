@@ -62,6 +62,4 @@ public class CommentaireTest {
 		assertEquals("Getter or setter for texte not working", expectedTexte, commentaire.getTexte());
 	}
 
-	// Similar tests for other getters and setters...
-
 }

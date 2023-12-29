@@ -69,18 +69,15 @@ public class AuthControllerTest {
 		when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class)))
 				.thenReturn(authentication);
 
-		// Mocking JwtUtils
 		when(jwtUtils.generateJwtCookie(any(UserDetailsImpl.class)))
 				.thenReturn(ResponseCookie.from("jwt", "mocked-jwt").httpOnly(true).secure(false).maxAge(3600).build());
-
-		// Perform the request
 		LoginRequest loginRequest = new LoginRequest("testUser", "password");
+
 		MvcResult result = mockMvc
 				.perform(MockMvcRequestBuilders.post("/blog/auth/signin").contentType(MediaType.APPLICATION_JSON)
 						.content("{\"username\":\"testUser\",\"password\":\"password\"}"))
 				.andReturn();
 
-		// Verify the response
 		MockHttpServletResponse response = result.getResponse();
 		String cookieHeader = response.getHeader(HttpHeaders.SET_COOKIE);
 		UserInfoResponse expectedResponse = new UserInfoResponse(1, "testUser", "test@example.com");
@@ -103,13 +100,11 @@ public class AuthControllerTest {
 		when(userRepository.existsByUsername("testUser")).thenReturn(false);
         when(userRepository.existsByEmail("test@example.com")).thenReturn(false);
 
-        // Perform the request
         SignupRequest signupRequest = new SignupRequest("test@example.com", "password", "testUser");
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/blog/auth/signup")
                 .contentType(MediaType.APPLICATION_JSON).content("{\"email\":\"test@example.com\",\"password\":\"password\",\"username\":\"testUser\"}"))
                 .andReturn();
 
-        // Verify the response
         MockHttpServletResponse response = result.getResponse();
         String content = response.getContentAsString();
         assertEquals(200, response.getStatus());
@@ -124,7 +119,6 @@ public class AuthControllerTest {
 	    public void testLogoutUser() throws Exception {
 	        when(userRepository.existsByUsername("testUser")).thenReturn(true);
 
-	        // Perform the request and expect a 400 status (Bad Request) due to the exception
 	        mockMvc.perform(post("/blog/auth/signup")
 	                .contentType(MediaType.APPLICATION_JSON)
 	                .content("{\"email\":\"test@example.com\",\"password\":\"password\",\"username\":\"testUser\"}"))
@@ -162,17 +156,14 @@ public class AuthControllerTest {
 
 	@Test
 	public void testRegisterUser_Success() throws Exception {
-	    // Mocking the case where both username and email are available
 	    when(userRepository.existsByUsername("newUser")).thenReturn(false);
 	    when(userRepository.existsByEmail("new@example.com")).thenReturn(false);
 
-	    // Perform the request
 	    SignupRequest signupRequest = new SignupRequest("new@example.com", "password", "newUser");
 	    MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/blog/auth/signup")
 	            .contentType(MediaType.APPLICATION_JSON).content("{\"email\":\"new@example.com\",\"password\":\"password\",\"username\":\"newUser\"}"))
 	            .andReturn();
 
-	    // Verify the response
 	    MockHttpServletResponse response = result.getResponse();
 	    String content = response.getContentAsString();
 	    assertEquals(200, response.getStatus());
