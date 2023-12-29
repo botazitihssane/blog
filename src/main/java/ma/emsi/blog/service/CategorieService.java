@@ -1,19 +1,20 @@
 package ma.emsi.blog.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import ma.emsi.blog.model.Categorie;
 
 public interface CategorieService {
-	public void create(Categorie c);
+	public Categorie create(Categorie c);
 
-	public void update(Categorie c);
+	public Categorie update(Categorie c);
 
 	public void delete(int id);
 
 	public List<Categorie> findAll();
 
-	public Categorie findById(int id);
+	public Optional<Categorie> findById(int id);
 
-	public Categorie findByNom(String nom);
+	public Optional<Categorie> findByNom(String nom);
 }

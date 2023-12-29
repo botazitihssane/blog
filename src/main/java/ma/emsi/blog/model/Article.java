@@ -2,7 +2,6 @@ package ma.emsi.blog.model;
 
 import java.time.LocalDate;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,20 +18,28 @@ public class Article {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+
 	@NotBlank(message = "Titre ne peut pas etre vide")
 	private String titre;
+
 	@Column(columnDefinition = "TEXT")
 	@NotBlank(message = "Texte ne peut pas etre vide")
 	private String texte;
+
 	private String photo;
+
 	private String lien;
+
 	@NotNull(message = "Date ne peut pas etre vide")
 	private LocalDate date;
+
 	@Min(value = 0, message = "Nombre de commentaire ne peut pas etre négatif")
 	private int nombreCommentaire;
+
 	@ManyToOne
 	@NotNull(message = "Categorie ne peut pas etre vide")
 	private Categorie categorie;
+
 	@ManyToOne
 	@NotNull(message = "Le proprietaire ne peut pas etre vide")
 	private Proprietaire user;

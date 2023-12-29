@@ -3,22 +3,12 @@ package ma.emsi.blog.model;
 import static org.junit.Assert.*;
 
 import java.time.LocalDate;
-import java.util.Set;
-
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.ConstraintViolationException;
-import jakarta.validation.Validation;
-import jakarta.validation.Validator;
-import jakarta.validation.ValidatorFactory;
 
 @RunWith(MockitoJUnitRunner.class)
 
@@ -32,8 +22,6 @@ public class ArticleTest {
 
 	@Mock
 	private Proprietaire proprietaire;
-
-	private Validator validator;
 
 	@Before
 	public void setUp() {

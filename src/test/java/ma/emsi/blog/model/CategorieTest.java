@@ -16,56 +16,64 @@ public class CategorieTest {
 
 	private Categorie categorie;
 
+	private Validator validator;
+
 	@Before
 	public void setUp() {
 		categorie = new Categorie();
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		validator = factory.getValidator();
 	}
 
 	@Test
-	public void testBlankNomValidation() {
-		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-		Validator validator = factory.getValidator();
+	public void testGetAndSetId() {
+		int id = 1;
+		categorie.setId(id);
+		assertEquals(id, categorie.getId());
+	}
 
+	@Test
+	public void testGetAndSetNom() {
+		String nom = "Technology";
+		categorie.setNom(nom);
+		assertEquals(nom, categorie.getNom());
+	}
+
+	@Test
+	public void testConstructorWithParameters() {
+		int id = 1;
+		String nom = "Technology";
+		Categorie categorieWithParams = new Categorie(id, nom);
+
+		assertEquals(id, categorieWithParams.getId());
+		assertEquals(nom, categorieWithParams.getNom());
+	}
+
+	@Test
+	public void testDefaultConstructor() {
+		Categorie newCategorie = new Categorie();
+		assertNotNull(newCategorie);
+	}
+
+	@Test
+	public void whenNomNotBlank_thenNoConstraintViolations() {
 		Categorie categorie = new Categorie();
-		categorie.setNom("");
+		categorie.setNom("Technology");
+
 		Set<ConstraintViolation<Categorie>> violations = validator.validate(categorie);
 
-		assertFalse("Nom should not be valid", violations.isEmpty());
-		for (ConstraintViolation<Categorie> violation : violations) {
-			assertEquals("Le nom ne peut pas etre vide", violation.getMessage());
-		}
+		assertTrue(violations.isEmpty());
 	}
 
 	@Test
-	public void whenAllArgsConstructorUsed_thenPropertiesAreSet() {
-		int expectedId = 1;
-		String expectedNom = "Test Category";
-		Categorie categorie = new Categorie(expectedId, expectedNom);
-		assertEquals(expectedId, categorie.getId());
-		assertEquals(expectedNom, categorie.getNom());
-	}
+	public void whenNomBlank_thenConstraintViolation() {
+		Categorie categorie = new Categorie();
+		categorie.setNom("");
 
-	@Test
-	public void testGetId() {
-		categorie.setId(1);
-		assertEquals(1, categorie.getId());
-	}
+		Set<ConstraintViolation<Categorie>> violations = validator.validate(categorie);
 
-	@Test
-	public void testSetId() {
-		categorie.setId(1);
-		assertEquals(1, categorie.getId());
-	}
-
-	@Test
-	public void testGetNom() {
-		categorie.setNom("Test Nom");
-		assertEquals("Test Nom", categorie.getNom());
-	}
-
-	@Test
-	public void testSetNom() {
-		categorie.setNom("Test Nom");
-		assertEquals("Test Nom", categorie.getNom());
+		assertFalse(violations.isEmpty());
+		assertEquals(1, violations.size());
+		assertEquals("Le nom ne peut pas etre vide", violations.iterator().next().getMessage());
 	}
 }

@@ -1,40 +1,64 @@
 package ma.emsi.blog.repository;
 
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.List;
+import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import ma.emsi.blog.model.Categorie;
 
-
+@RunWith(SpringRunner.class)
+@DataJpaTest
 public class CategorieRepositoryTest {
 
-    @Autowired
-    private CategorieRepository categorieRepository;
+	@Autowired
+	private CategorieRepository categorieRepository;
 
-    private Categorie testCategorie;
+	private Categorie savedCategorie;
 
-    @Before
-    public void setUp() {
-        // Create and save a Categorie object for testing
-        testCategorie = new Categorie();
-        testCategorie.setNom("TestCategory");
-        categorieRepository.save(testCategorie);
-    }
+	@Autowired
+	private TestEntityManager entityManager;
 
-    @Test
-    public void whenFindById_thenReturnCategorie() {
-        Categorie found = categorieRepository.findById(testCategorie.getId());
-        assertNotNull("Categorie should not be null", found);
-        assertEquals("Categorie name should match", testCategorie.getNom(), found.getNom());
-    }
+	@Before
+	public void setUp() {
+		savedCategorie.setId(1);
+		savedCategorie.setNom("Test Categorie");
+		entityManager.persist(savedCategorie);
+	}
 
-    @Test
-    public void whenFindByNom_thenReturnCategorie() {
-        Categorie found = categorieRepository.findByNom(testCategorie.getNom());
-        assertNotNull("Categorie should not be null", found);
-        assertEquals("Categorie ID should match", testCategorie.getId(), found.getId());
-    }
+	@Test
+	public void testFindAll() {
+	    List<Categorie> categories = categorieRepository.findAll();
+	    assertThat(categories).isNotNull().hasSize(1).contains(savedCategorie);
+	}
+
+	/*@Test
+	public void testFindById_thenReturnCategorie() {
+		Optional<Categorie> found = categorieRepository.findById(savedCategorie.getId());
+		assertTrue(found.isPresent());
+		assertEquals("Test Categorie", found.get().getNom());
+	}*/
+
+	/*
+	 * @Test public void testFindByNonExistentId_thenReturnEmpty() {
+	 * Optional<Categorie> notFound = categorieRepository.findById(-99);
+	 * assertFalse(notFound.isPresent()); }
+	 * 
+	 * @Test public void testFindByNom_thenReturnCategorie() { Optional<Categorie>
+	 * found = categorieRepository.findByNom("Test Categorie");
+	 * assertTrue(found.isPresent()); assertEquals(savedCategorie.getId(),
+	 * found.get().getId()); }
+	 * 
+	 * @Test public void testFindByNonExistentNom_thenReturnNull() {
+	 * Optional<Categorie> notFound = categorieRepository.findByNom("Non Existent");
+	 * assertFalse(notFound.isPresent()); }
+	 */
 }

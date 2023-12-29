@@ -10,6 +10,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "Commentaire")
@@ -17,12 +18,14 @@ public class Commentaire {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+
 	@NotBlank(message = "Texte ne peut pas etre vide")
 	private String texte;
+
 	private LocalDate date;
 	@ManyToOne
 	@JoinColumn(name = "article_id")
-	@NotBlank(message = "Article ne peut pas etre vide")
+	@NotNull(message = "Article ne peut pas etre vide")
 	private Article article;
 
 	@ManyToOne

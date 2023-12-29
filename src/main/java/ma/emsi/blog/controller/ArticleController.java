@@ -32,15 +32,13 @@ public class ArticleController {
 		return ResponseEntity.noContent().build();
 	}
 
-	@GetMapping(value = "/articles", produces = { "application/json", "application/xml" }, consumes = {
-			"application/json", "application/xml" })
+	@GetMapping(value = "/articles", produces = { "application/json", "application/xml" })
 	public ResponseEntity<List<Article>> findAll() {
 		List<Article> result = articleService.findAll();
 		return ResponseEntity.ok().body(result);
 	}
 
-	@GetMapping(value = "/article/id/{id}", produces = { "application/json", "application/xml" }, consumes = {
-			"application/json", "application/xml" })
+	@GetMapping(value = "/article/id/{id}", produces = { "application/json", "application/xml" })
 	public ResponseEntity<Article> findarticle(@PathVariable int id) {
 		Article result = articleService.findById(id);
 		return ResponseEntity.ok().body(result);
@@ -67,15 +65,15 @@ public class ArticleController {
 		return ResponseEntity.ok().body(result);
 	}
 
-	@GetMapping(value = "/article/search/keyword/{keyword}", produces = { "application/json", "application/xml" }, consumes = {
-			"application/json", "application/xml" })
+	@GetMapping(value = "/article/search/keyword/{keyword}", produces = { "application/json",
+			"application/xml" }, consumes = { "application/json", "application/xml" })
 	public ResponseEntity<List<Article>> sortByComments(@PathVariable String keyword) {
 		List<Article> result = articleService.searchByKeyword(keyword);
 		return ResponseEntity.ok().body(result);
 	}
 
-	@GetMapping(value = "/article/search/date/{date}", produces = { "application/json", "application/xml" }, consumes = {
-			"application/json", "application/xml" })
+	@GetMapping(value = "/article/search/date/{date}", produces = { "application/json",
+			"application/xml" }, consumes = { "application/json", "application/xml" })
 	public ResponseEntity<List<Article>> sortByComments(@PathVariable LocalDate date) {
 		List<Article> result = articleService.findByDate(date);
 		return ResponseEntity.ok().body(result);

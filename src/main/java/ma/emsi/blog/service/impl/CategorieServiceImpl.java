@@ -1,6 +1,7 @@
 package ma.emsi.blog.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,17 +17,19 @@ public class CategorieServiceImpl implements CategorieService {
 	private CategorieRepository categorieRepository;
 
 	@Override
-	public void create(Categorie c) {
-		categorieRepository.save(c);
+	public Categorie create(Categorie c) {
+		return categorieRepository.save(c);
 	}
 
 	@Override
-	public void update(Categorie c) {
-		Categorie newCategorie = findById(c.getId());
-		if (newCategorie != null) {
-			newCategorie.setNom(c.getNom());
-			categorieRepository.save(newCategorie);
+	public Categorie update(Categorie c) {
+		Optional<Categorie> existingCategorie = findById(c.getId());
+		if (existingCategorie.isPresent()) {
+			Categorie updatedCategorie = existingCategorie.get();
+			updatedCategorie.setNom(c.getNom());
+			return categorieRepository.save(updatedCategorie);
 		}
+		return null;
 	}
 
 	@Override
@@ -40,12 +43,12 @@ public class CategorieServiceImpl implements CategorieService {
 	}
 
 	@Override
-	public Categorie findById(int id) {
+	public Optional<Categorie> findById(int id) {
 		return categorieRepository.findById(id);
 	}
 
 	@Override
-	public Categorie findByNom(String nom) {
+	public Optional<Categorie> findByNom(String nom) {
 		return categorieRepository.findByNom(nom);
 	}
 
