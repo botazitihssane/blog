@@ -3,6 +3,7 @@ package ma.emsi.blog.controller;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
@@ -85,11 +86,12 @@ public class ProprietaireControllerTest {
 
 	@Test
 	public void testDeleteProprietaire() {
-		doNothing().when(proprietaireService).delete(1);
+	    when(proprietaireService.existsById(1)).thenReturn(true);
 
-		ResponseEntity<Void> response = proprietaireController.delete(1);
+	    ResponseEntity<Void> response = proprietaireController.delete(1);
+	    verify(proprietaireService).delete(1);
 
-		assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
+	    assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
 	}
 
 	@Test

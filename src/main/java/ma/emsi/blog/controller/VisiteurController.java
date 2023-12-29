@@ -32,23 +32,34 @@ public class VisiteurController {
 	@GetMapping(value = "/visiteur/{id}", produces = { "application/json", "application/xml" })
 	public ResponseEntity<Visiteur> getById(@PathVariable int id) {
 		Visiteur result = visiteurService.findById(id);
-		return ResponseEntity.ok().body(result);
+		if (result != null) {
+			return ResponseEntity.ok().body(result);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
 	}
 
 	@GetMapping(value = "/visiteur/nom/{nom}", produces = { "application/json", "application/xml" })
 	public ResponseEntity<Visiteur> getByNom(@PathVariable String nom) {
 		Visiteur result = visiteurService.findByNom(nom);
-		return ResponseEntity.ok().body(result);
+		if (result != null) {
+			return ResponseEntity.ok().body(result);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
 	}
 
 	@GetMapping(value = "/visiteur/email/{email}", produces = { "application/json", "application/xml" })
 	public ResponseEntity<Visiteur> getByEmail(@PathVariable String email) {
 		Visiteur result = visiteurService.findByEmail(email);
-		return ResponseEntity.ok().body(result);
+		if (result != null) {
+			return ResponseEntity.ok().body(result);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
 	}
 
-	@GetMapping(value = "/visiteurs", produces = { "application/json", "application/xml" }, consumes = {
-			"application/json", "application/xml" })
+	@GetMapping(value = "/visiteurs", produces = { "application/json", "application/xml" })
 	public ResponseEntity<List<Visiteur>> findAll() {
 		List<Visiteur> result = visiteurService.findAll();
 		return ResponseEntity.ok().body(result);

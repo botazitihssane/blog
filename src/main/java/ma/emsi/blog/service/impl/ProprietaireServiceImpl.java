@@ -1,6 +1,7 @@
 package ma.emsi.blog.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -70,5 +71,14 @@ public class ProprietaireServiceImpl implements ProprietaireService {
 		}
 
 		return true;
+	}
+
+	@Override
+	public boolean existsById(int id) {
+		Proprietaire existingProprietaire = findById(id);
+		if (existingProprietaire != null) {
+			return true;
+		}
+		return false;
 	}
 }

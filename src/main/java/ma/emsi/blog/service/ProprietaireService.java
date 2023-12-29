@@ -1,6 +1,7 @@
 package ma.emsi.blog.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import ma.emsi.blog.model.Proprietaire;
 
@@ -15,4 +16,6 @@ public interface ProprietaireService {
 	public List<Proprietaire> findAll();
 
 	public Proprietaire findById(int id);
+
+	public boolean existsById(int id);
 }
