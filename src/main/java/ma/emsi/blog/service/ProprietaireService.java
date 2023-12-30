@@ -1,7 +1,6 @@
 package ma.emsi.blog.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import ma.emsi.blog.model.Proprietaire;
 

@@ -1,3 +1,0 @@
-ma.emsi.blog.controller.ArticleController#add(Lma/emsi/blog/model/Article;)LResponseEntity;
-==
-create ma.emsi.blog.service.ArticleService#create(Lma/emsi/blog/model/Article;)V

@@ -1,4 +1,0 @@
-ma.emsi.blog.auth.JwtUtils#generateJwtCookie(Lma/emsi/blog/service/impl/UserDetailsImpl;)LResponseCookie;
-==
-generateTokenFromUsername ma.emsi.blog.auth.JwtUtils#generateTokenFromUsername(Ljava/lang/String;)Ljava/lang/String;
-getUsername ma.emsi.blog.service.impl.UserDetailsImpl#getUsername()Ljava/lang/String;

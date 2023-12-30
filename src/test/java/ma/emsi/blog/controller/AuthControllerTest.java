@@ -38,6 +38,13 @@ import ma.emsi.blog.service.impl.UserDetailsImpl;
 @RunWith(MockitoJUnitRunner.class)
 public class AuthControllerTest {
 
+	private static final String SIGNUP_URL = "/blog/auth/signup";
+	private static final String TEST_USERNAME = "testUser";
+	private static final String TEST_PASSWORD = "password";
+	private static final String TEST_EMAIL = "test@example.com";
+	private static final String EMAIL_PASSWORD_SEPARATOR = "\",\"password\":\"";
+	private static final String JSON_EMAIL_PREFIX = "{\"email\":\"";
+
 	private MockMvc mockMvc;
 
 	@Mock
@@ -64,14 +71,14 @@ public class AuthControllerTest {
 	public void testAuthenticateUser() throws Exception {
 		Authentication authentication = mock(Authentication.class);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-		UserDetailsImpl userDetails = new UserDetailsImpl(1, "testUser", "test@example.com", "password");
+		UserDetailsImpl userDetails = new UserDetailsImpl(1, TEST_USERNAME, TEST_EMAIL, TEST_PASSWORD);
 		when(authentication.getPrincipal()).thenReturn(userDetails);
 		when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class)))
 				.thenReturn(authentication);
 
 		when(jwtUtils.generateJwtCookie(any(UserDetailsImpl.class)))
 				.thenReturn(ResponseCookie.from("jwt", "mocked-jwt").httpOnly(true).secure(false).maxAge(3600).build());
-		LoginRequest loginRequest = new LoginRequest("testUser", "password");
+		LoginRequest loginRequest = new LoginRequest(TEST_USERNAME, TEST_PASSWORD);
 
 		MvcResult result = mockMvc
 				.perform(MockMvcRequestBuilders.post("/blog/auth/signin").contentType(MediaType.APPLICATION_JSON)
@@ -80,7 +87,7 @@ public class AuthControllerTest {
 
 		MockHttpServletResponse response = result.getResponse();
 		String cookieHeader = response.getHeader(HttpHeaders.SET_COOKIE);
-		UserInfoResponse expectedResponse = new UserInfoResponse(1, "testUser", "test@example.com");
+		UserInfoResponse expectedResponse = new UserInfoResponse(1, TEST_USERNAME, TEST_EMAIL);
 
 		assertEquals(200, response.getStatus());
 		assertEquals("{\"id\":1,\"username\":\"testUser\",\"email\":\"test@example.com\"}",
@@ -91,48 +98,48 @@ public class AuthControllerTest {
 		assertEquals(expectedResponse.getUsername(), userDetails.getUsername());
 		assertEquals(expectedResponse.getEmail(), userDetails.getEmail());
 
-		assertEquals("testUser", loginRequest.getUsername());
-		assertEquals("password", loginRequest.getPassword());
+		assertEquals(TEST_USERNAME, loginRequest.getUsername());
+		assertEquals(TEST_PASSWORD, loginRequest.getPassword());
 	}
 
 	@Test
 	public void testRegisterUser() throws Exception {
-		when(userRepository.existsByUsername("testUser")).thenReturn(false);
-        when(userRepository.existsByEmail("test@example.com")).thenReturn(false);
+		when(userRepository.existsByUsername(TEST_USERNAME)).thenReturn(false);
+        when(userRepository.existsByEmail(TEST_EMAIL)).thenReturn(false);
 
-        SignupRequest signupRequest = new SignupRequest("test@example.com", "password", "testUser");
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/blog/auth/signup")
-                .contentType(MediaType.APPLICATION_JSON).content("{\"email\":\"test@example.com\",\"password\":\"password\",\"username\":\"testUser\"}"))
+        SignupRequest signupRequest = new SignupRequest(TEST_EMAIL, TEST_PASSWORD, TEST_USERNAME);
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post(SIGNUP_URL)
+                .contentType(MediaType.APPLICATION_JSON).content(JSON_EMAIL_PREFIX + TEST_EMAIL + EMAIL_PASSWORD_SEPARATOR + TEST_PASSWORD + "\",\"username\":\"" + TEST_USERNAME + "\"}"))
                 .andReturn();
-
         MockHttpServletResponse response = result.getResponse();
         String content = response.getContentAsString();
         assertEquals(200, response.getStatus());
 
         assertEquals("{\"message\":\"User registered successfully!\"}", content);
-        assertEquals("test@example.com", signupRequest.getEmail());
-        assertEquals("password", signupRequest.getPassword());
-        assertEquals("testUser", signupRequest.getUsername());
+        assertEquals(TEST_EMAIL, signupRequest.getEmail());
+        assertEquals(TEST_PASSWORD, signupRequest.getPassword());
+        assertEquals(TEST_USERNAME, signupRequest.getUsername());
 	}
 
 	@Test
 	    public void testLogoutUser() throws Exception {
-	        when(userRepository.existsByUsername("testUser")).thenReturn(true);
+		 when(userRepository.existsByUsername(TEST_USERNAME)).thenReturn(true);
 
-	        mockMvc.perform(post("/blog/auth/signup")
+	        mockMvc.perform(post(SIGNUP_URL)
 	                .contentType(MediaType.APPLICATION_JSON)
-	                .content("{\"email\":\"test@example.com\",\"password\":\"password\",\"username\":\"testUser\"}"))
+	                .content(JSON_EMAIL_PREFIX + TEST_EMAIL + EMAIL_PASSWORD_SEPARATOR + TEST_PASSWORD + "\",\"username\":\"" + TEST_USERNAME + "\"}"))
 	                .andExpect(status().isBadRequest());
 	    }
 
 	@Test
-	public void testRegisterUser_UsernameAlreadyTaken() throws Exception {
+	public void testRegisterUserUsernameAlreadyTaken() throws Exception {
 	    when(userRepository.existsByUsername("existingUser")).thenReturn(true);
 
-	    MvcResult result = mockMvc.perform(post("/blog/auth/signup")
+	    MvcResult result = mockMvc.perform(post(SIGNUP_URL)
 	            .contentType(MediaType.APPLICATION_JSON)
-	            .content("{\"email\":\"test@example.com\",\"password\":\"password\",\"username\":\"existingUser\"}"))
+	            .content(JSON_EMAIL_PREFIX + TEST_EMAIL + EMAIL_PASSWORD_SEPARATOR + TEST_PASSWORD + "\",\"username\":\"existingUser\"}"))
 	            .andReturn();
+
 
 	    MockHttpServletResponse response = result.getResponse();
 	    assertEquals(400, response.getStatus());
@@ -140,13 +147,12 @@ public class AuthControllerTest {
 }
 
 	@Test
-	public void testRegisterUser_EmailAlreadyInUse() throws Exception {
-	    when(userRepository.existsByEmail("existing@example.com")).thenReturn(true);
+	public void testRegisterUserEmailAlreadyInUse() throws Exception {
+		 when(userRepository.existsByEmail(TEST_EMAIL)).thenReturn(true);
 
-	    SignupRequest signupRequest = new SignupRequest("existing@example.com", "password", "newUser");
-	    MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/blog/auth/signup")
-	            .contentType(MediaType.APPLICATION_JSON).content("{\"email\":\"existing@example.com\",\"password\":\"password\",\"username\":\"newUser\"}"))
-	            .andReturn();
+		    MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post(SIGNUP_URL)
+		            .contentType(MediaType.APPLICATION_JSON).content(JSON_EMAIL_PREFIX + TEST_EMAIL +EMAIL_PASSWORD_SEPARATOR + TEST_PASSWORD + "\",\"username\":\"newUser\"}"))
+		            .andReturn();
 
 	    MockHttpServletResponse response = result.getResponse();
 	    String content = response.getContentAsString();
@@ -155,13 +161,12 @@ public class AuthControllerTest {
 	}
 
 	@Test
-	public void testRegisterUser_Success() throws Exception {
+	public void testRegisterUserSuccess() throws Exception {
 	    when(userRepository.existsByUsername("newUser")).thenReturn(false);
 	    when(userRepository.existsByEmail("new@example.com")).thenReturn(false);
 
-	    SignupRequest signupRequest = new SignupRequest("new@example.com", "password", "newUser");
-	    MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/blog/auth/signup")
-	            .contentType(MediaType.APPLICATION_JSON).content("{\"email\":\"new@example.com\",\"password\":\"password\",\"username\":\"newUser\"}"))
+	    MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post(SIGNUP_URL)
+	            .contentType(MediaType.APPLICATION_JSON).content("{\"email\":\"new@example.com\",\"password\":\"" + TEST_PASSWORD + "\",\"username\":\"newUser\"}"))
 	            .andReturn();
 
 	    MockHttpServletResponse response = result.getResponse();

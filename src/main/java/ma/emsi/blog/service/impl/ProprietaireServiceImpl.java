@@ -1,12 +1,12 @@
 package ma.emsi.blog.service.impl;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import ma.emsi.blog.exception.DuplicateUserException;
 import ma.emsi.blog.model.Proprietaire;
 import ma.emsi.blog.repository.ProprietaireRepository;
 import ma.emsi.blog.repository.UtilisateurRepository;
@@ -62,12 +62,15 @@ public class ProprietaireServiceImpl implements ProprietaireService {
 	}
 
 	private boolean validateAndCheckUniqueness(Proprietaire p) {
-		if (userRepository.existsByUsername(p.getUsername())) {
-			throw new RuntimeException("Error: Username is already taken!");
-		}
+		boolean usernameExists = userRepository.existsByUsername(p.getUsername());
+		boolean emailExists = userRepository.existsByEmail(p.getEmail());
 
-		if (userRepository.existsByEmail(p.getEmail())) {
-			throw new RuntimeException("Error: Email is already in use!");
+		if (usernameExists && emailExists) {
+			throw new DuplicateUserException("Error: Username and Email are already taken!");
+		} else if (usernameExists) {
+			throw new DuplicateUserException("Error: Username is already taken!");
+		} else if (emailExists) {
+			throw new DuplicateUserException("Error: Email is already in use!");
 		}
 
 		return true;
@@ -75,10 +78,6 @@ public class ProprietaireServiceImpl implements ProprietaireService {
 
 	@Override
 	public boolean existsById(int id) {
-		Proprietaire existingProprietaire = findById(id);
-		if (existingProprietaire != null) {
-			return true;
-		}
-		return false;
+		return findById(id) != null;
 	}
 }

@@ -1,3 +1,0 @@
-ma.emsi.blog.controller.ArticleController#sortByComments()LResponseEntity;
-==
-sortByComments ma.emsi.blog.service.ArticleService#sortByComments()Ljava/util/List;

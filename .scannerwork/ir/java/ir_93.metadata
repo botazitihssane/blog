@@ -1,3 +1,0 @@
-ma.emsi.blog.controller.CommentaireController#findAll()LResponseEntity;
-==
-findAll ma.emsi.blog.service.CommentaireService#findAll()Ljava/util/List;

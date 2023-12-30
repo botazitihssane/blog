@@ -10,6 +10,5 @@ import ma.emsi.blog.model.Categorie;
 @Repository
 public interface CategorieRepository extends JpaRepository<Categorie, Integer> {
 	Optional<Categorie> findById(int id);
-
 	Optional<Categorie> findByNom(String nom);
 }

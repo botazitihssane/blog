@@ -1,3 +1,0 @@
-ma.emsi.blog.controller.ArticleController#findArticleByCategorie(I)LResponseEntity;
-==
-searchByCategory ma.emsi.blog.service.ArticleService#searchByCategory(I)Ljava/util/List;

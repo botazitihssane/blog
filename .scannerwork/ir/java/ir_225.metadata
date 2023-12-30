@@ -1,3 +1,0 @@
-ma.emsi.blog.service.impl.ArticleServiceImpl#findByDate(Ljava/time/LocalDate;)Ljava/util/List;
-==
-findByDate ma.emsi.blog.repository.ArticleRepository#findByDate(Ljava/time/LocalDate;)Ljava/util/List;

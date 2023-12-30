@@ -25,6 +25,8 @@ import ma.emsi.blog.service.CategorieService;
 @RunWith(MockitoJUnitRunner.class)
 public class CategorieControllerTest {
 
+	private static final String JSON_PATH_NOM = "$.nom";
+
 	private MockMvc mockMvc;
 
 	@Mock
@@ -45,7 +47,7 @@ public class CategorieControllerTest {
 		when(categorieService.create(any(Categorie.class))).thenReturn(newCategorie);
 
 		mockMvc.perform(post("/blog/categorie").contentType(MediaType.APPLICATION_JSON).content("{\"nom\":\"Tech\"}"))
-				.andExpect(status().isCreated()).andExpect(jsonPath("$.nom").value("Tech"));
+				.andExpect(status().isCreated()).andExpect(jsonPath(JSON_PATH_NOM).value("Tech"));
 	}
 
 	@Test
@@ -63,7 +65,7 @@ public class CategorieControllerTest {
 		when(categorieService.findById(1)).thenReturn(Optional.of(categorie));
 
 		mockMvc.perform(get("/blog/categorie/id/1")).andExpect(status().isOk())
-				.andExpect(jsonPath("$.nom").value("Tech"));
+				.andExpect(jsonPath(JSON_PATH_NOM).value("Tech"));
 	}
 
 	@Test
@@ -72,7 +74,7 @@ public class CategorieControllerTest {
 		when(categorieService.findByNom("Tech")).thenReturn(Optional.of(categorie));
 
 		mockMvc.perform(get("/blog/categorie/nom/Tech")).andExpect(status().isOk())
-				.andExpect(jsonPath("$.nom").value("Tech"));
+				.andExpect(jsonPath(JSON_PATH_NOM).value("Tech"));
 	}
 
 	@Test
@@ -83,7 +85,7 @@ public class CategorieControllerTest {
 
 		mockMvc.perform(put("/blog/categorie").contentType(MediaType.APPLICATION_JSON)
 				.content("{\"id\":1, \"nom\":\"Updated Tech\"}")).andExpect(status().isOk())
-				.andExpect(jsonPath("$.nom").value("Updated Tech"));
+				.andExpect(jsonPath(JSON_PATH_NOM).value("Updated Tech"));
 	}
 
 	@Test

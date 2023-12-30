@@ -1,6 +1,0 @@
-ma.emsi.blog.service.impl.CategorieServiceImpl#update(Lma/emsi/blog/model/Categorie;)V
-==
-getId ma.emsi.blog.model.Categorie#getId()I
-findById ma.emsi.blog.service.impl.CategorieServiceImpl#findById(I)Lma/emsi/blog/model/Categorie;
-setNom ma.emsi.blog.model.Categorie#setNom(Ljava/lang/String;)V
-getNom ma.emsi.blog.model.Categorie#getNom()Ljava/lang/String;

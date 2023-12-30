@@ -1,3 +1,0 @@
-ma.emsi.blog.auth.AuthTokenFilter#parseJwt(LHttpServletRequest;)Ljava/lang/String;
-==
-getJwtFromCookies ma.emsi.blog.auth.JwtUtils#getJwtFromCookies(LHttpServletRequest;)Ljava/lang/String;

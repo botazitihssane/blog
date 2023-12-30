@@ -24,7 +24,7 @@ public class CommentaireRepositoryTest {
     }
 
     @Test
-    public void whenFindById_thenReturnCommentaire() {
+    public void whenFindByIdthenReturnCommentaire() {
         Commentaire found = commentaireRepository.findById(testCommentaire.getId());
         assertNotNull("Commentaire should not be null", found);
         // Add more assertions here to check other properties of found Commentaire

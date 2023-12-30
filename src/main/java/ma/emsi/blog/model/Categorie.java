@@ -6,41 +6,23 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "Categorie")
+@Data 
+@NoArgsConstructor 
+@AllArgsConstructor 
 public class Categorie {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	@NotBlank(message = "Le nom ne peut pas etre vide")
-	private String nom;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getNom() {
-		return nom;
-	}
-
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-
-	public Categorie(int id, String nom) {
-		super();
-		this.id = id;
-		this.nom = nom;
-	}
-
-	public Categorie() {
-		super();
-	}
-
+    @NotBlank(message = "Le nom ne peut pas etre vide")
+    private String nom;
 }

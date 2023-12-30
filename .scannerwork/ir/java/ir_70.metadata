@@ -1,5 +1,0 @@
-ma.emsi.blog.service.impl.UserDetailsServiceImpl#loadUserByUsername(Ljava/lang/String;)LUserDetails;
-java.util.Optional#orElseThrow(Ljava/util/function/Supplier;)Ljava/lang/Object;
-ma.emsi.blog.service.impl.UserDetailsImpl#build(Lma/emsi/blog/model/Utilisateur;)LUserDetails;
-==
-findByUsername ma.emsi.blog.repository.UtilisateurRepository#findByUsername(Ljava/lang/String;)Ljava/util/Optional;

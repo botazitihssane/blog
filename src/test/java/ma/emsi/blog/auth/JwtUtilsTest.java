@@ -84,13 +84,13 @@ public class JwtUtilsTest {
 	}
 
 	@Test
-	public void testValidateJwtToken_ValidToken() {
+	public void testValidateJwtTokenValidToken() {
 		String token = jwtUtils.generateTokenFromUsername(userDetails.getUsername());
 		assertTrue(jwtUtils.validateJwtToken(token));
 	}
 
 	@Test
-	public void testValidateJwtToken_InvalidToken() {
+	public void testValidateJwtTokenInvalidToken() {
 		String invalidToken = "invalidToken";
 		assertFalse(jwtUtils.validateJwtToken(invalidToken));
 	}

@@ -1,3 +1,0 @@
-ma.emsi.blog.controller.ArticleController#sortByDate()LResponseEntity;
-==
-sortByDate ma.emsi.blog.service.ArticleService#sortByDate()Ljava/util/List;

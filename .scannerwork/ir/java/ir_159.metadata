@@ -1,3 +1,0 @@
-ma.emsi.blog.controller.CategorieController#update(Lma/emsi/blog/model/Categorie;)LResponseEntity;
-==
-update ma.emsi.blog.service.CategorieService#update(Lma/emsi/blog/model/Categorie;)V

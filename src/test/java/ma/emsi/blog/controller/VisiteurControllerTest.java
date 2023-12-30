@@ -16,6 +16,9 @@ import ma.emsi.blog.service.VisiteurService;
 
 public class VisiteurControllerTest {
 
+	private static final String TEST_VISITEUR_NOM = "Visiteur Test";
+	private static final String TEST_VISITEUR_EMAIL = "visiteur.com";
+
 	@Mock
 	private VisiteurService visiteurService;
 
@@ -29,7 +32,7 @@ public class VisiteurControllerTest {
 
 	@Test
 	public void testGetVisiteurById() {
-		Visiteur visiteur = new Visiteur(1, "John Doe", "john@example.com", 5);
+		Visiteur visiteur = new Visiteur(1, TEST_VISITEUR_NOM, TEST_VISITEUR_EMAIL, 5);
 		when(visiteurService.findById(1)).thenReturn(visiteur);
 
 		ResponseEntity<Visiteur> expectedResponse = ResponseEntity.ok(visiteur);
@@ -52,12 +55,12 @@ public class VisiteurControllerTest {
 
 	@Test
 	public void testGetVisiteurByNom() {
-		Visiteur visiteur = new Visiteur(1, "John Doe", "john@example.com", 5);
-		when(visiteurService.findByNom("John Doe")).thenReturn(visiteur);
+		Visiteur visiteur = new Visiteur(1, TEST_VISITEUR_NOM, TEST_VISITEUR_EMAIL, 5);
+		when(visiteurService.findByNom(TEST_VISITEUR_NOM)).thenReturn(visiteur);
 
 		ResponseEntity<Visiteur> expectedResponse = ResponseEntity.ok(visiteur);
 
-		ResponseEntity<Visiteur> response = visiteurController.getByNom("John Doe");
+		ResponseEntity<Visiteur> response = visiteurController.getByNom(TEST_VISITEUR_NOM);
 
 		assertEquals(expectedResponse.getStatusCode(), response.getStatusCode());
 		assertEquals(expectedResponse.getBody(), response.getBody());
@@ -65,9 +68,9 @@ public class VisiteurControllerTest {
 
 	@Test
     public void testGetVisiteurByNomNotFound() {
-        when(visiteurService.findByNom("John Doe")).thenReturn(null);
+        when(visiteurService.findByNom(TEST_VISITEUR_NOM)).thenReturn(null);
 
-        ResponseEntity<Visiteur> response = visiteurController.getByNom("John Doe");
+        ResponseEntity<Visiteur> response = visiteurController.getByNom(TEST_VISITEUR_NOM);
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
         assertNull(response.getBody());
@@ -75,12 +78,12 @@ public class VisiteurControllerTest {
 
 	@Test
 	public void testGetVisiteurByEmail() {
-		Visiteur visiteur = new Visiteur(1, "John Doe", "john@example.com", 5);
-		when(visiteurService.findByEmail("john@example.com")).thenReturn(visiteur);
+		Visiteur visiteur = new Visiteur(1, TEST_VISITEUR_NOM, TEST_VISITEUR_EMAIL, 5);
+		when(visiteurService.findByEmail(TEST_VISITEUR_EMAIL)).thenReturn(visiteur);
 
 		ResponseEntity<Visiteur> expectedResponse = ResponseEntity.ok(visiteur);
 
-		ResponseEntity<Visiteur> response = visiteurController.getByEmail("john@example.com");
+		ResponseEntity<Visiteur> response = visiteurController.getByEmail(TEST_VISITEUR_EMAIL);
 
 		assertEquals(expectedResponse.getStatusCode(), response.getStatusCode());
 		assertEquals(expectedResponse.getBody(), response.getBody());
@@ -88,9 +91,9 @@ public class VisiteurControllerTest {
 
 	@Test
     public void testGetVisiteurByEmailNotFound() {
-        when(visiteurService.findByEmail("john@example.com")).thenReturn(null);
+        when(visiteurService.findByEmail(TEST_VISITEUR_EMAIL)).thenReturn(null);
 
-        ResponseEntity<Visiteur> response = visiteurController.getByEmail("john@example.com");
+        ResponseEntity<Visiteur> response = visiteurController.getByEmail(TEST_VISITEUR_EMAIL);
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
         assertNull(response.getBody());
@@ -98,7 +101,7 @@ public class VisiteurControllerTest {
 
 	@Test
 	public void testGetAllVisiteurs() {
-		Visiteur visiteur1 = new Visiteur(1, "John Doe", "john@example.com", 5);
+		Visiteur visiteur1 = new Visiteur(1, TEST_VISITEUR_NOM, TEST_VISITEUR_EMAIL, 5);
 		Visiteur visiteur2 = new Visiteur(2, "Alice Smith", "alice@example.com", 3);
 
 		List<Visiteur> visiteurs = new ArrayList<>();

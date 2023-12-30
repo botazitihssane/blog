@@ -1,7 +1,0 @@
-organization=qualite
-projectKey=qualite_blogpersonnel
-serverUrl=https://sonarcloud.io
-serverVersion=8.0.0.51767
-dashboardUrl=https://sonarcloud.io/dashboard?id=qualite_blogpersonnel
-ceTaskId=AYys_meE4bT-Tn4kJjym
-ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AYys_meE4bT-Tn4kJjym

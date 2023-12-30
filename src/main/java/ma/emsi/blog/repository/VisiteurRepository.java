@@ -8,8 +8,6 @@ import ma.emsi.blog.model.Visiteur;
 @Repository
 public interface VisiteurRepository extends JpaRepository<Visiteur, Integer> {
 	Visiteur findByEmail(String email);
-
 	Visiteur findById(int id);
-
 	Visiteur findByNom(String nom);
 }

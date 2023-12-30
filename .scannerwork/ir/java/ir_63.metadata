@@ -1,3 +1,0 @@
-ma.emsi.blog.controller.ArticleController#sortByComments(Ljava/time/LocalDate;)LResponseEntity;
-==
-findByDate ma.emsi.blog.service.ArticleService#findByDate(Ljava/time/LocalDate;)Ljava/util/List;

@@ -1,3 +1,0 @@
-ma.emsi.blog.controller.ArticleController#sortByComments(Ljava/lang/String;)LResponseEntity;
-==
-searchByKeyword ma.emsi.blog.service.ArticleService#searchByKeyword(Ljava/lang/String;)Ljava/util/List;

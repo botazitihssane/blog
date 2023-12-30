@@ -1,3 +1,0 @@
-ma.emsi.blog.controller.ProprietaireController#findProprietaire(I)LResponseEntity;
-==
-findById ma.emsi.blog.service.ProprietaireService#findById(I)Lma/emsi/blog/model/Proprietaire;

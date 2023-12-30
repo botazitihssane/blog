@@ -1,53 +1,59 @@
 package ma.emsi.blog.model;
 
 import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.Set;
+
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
 
 import org.junit.Before;
 import org.junit.Test;
 
 public class ProprietaireTest {
 
-	private Proprietaire proprietaire;
+	private Validator validator;
 
 	@Before
 	public void setUp() {
-		proprietaire = new Proprietaire();
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		validator = factory.getValidator();
 	}
 
 	@Test
-	public void testDefaultConstructor() {
-		assertNotNull("Proprietaire instance should not be null", proprietaire);
+	public void testProprietaireValidation() {
+		// Given
+		Proprietaire proprietaire = new Proprietaire();
+		proprietaire.setEmail("");
+		proprietaire.setPassword("pass");
+		proprietaire.setUsername("");
+
+		// When
+		Set<ConstraintViolation<Proprietaire>> violations = validator.validate(proprietaire);
+
+		// Then
+		assertFalse(violations.isEmpty());
+		assertEquals(3, violations.size());
+
+		for (ConstraintViolation<Proprietaire> violation : violations) {
+			System.out.println(violation.getPropertyPath() + " " + violation.getMessage());
+		}
 	}
+
 
 	@Test
-	public void testParameterizedConstructor() {
-		String email = "test@email.com";
-		String password = "password123";
-		String username = "testUser";
-		String photo = "testPhoto.jpg";
-		String biographie = "Test biography";
+    public void testProprietaireConstructor() {
+		Proprietaire proprietaire = new Proprietaire(1, "test@example.com", "password123",
+				"username", "photo.jpg", "Biography");
 
-		Proprietaire paramProprietaire = new Proprietaire(email, password, username, photo, biographie);
-
-		assertEquals("Email should match", email, paramProprietaire.getEmail());
-		assertEquals("Password should match", password, paramProprietaire.getPassword());
-		assertEquals("Username should match", username, paramProprietaire.getUsername());
-		assertEquals("Photo should match", photo, paramProprietaire.getPhoto());
-		assertEquals("Biographie should match", biographie, paramProprietaire.getBiographie());
+		assertEquals(1, proprietaire.getId());
+		assertEquals("test@example.com", proprietaire.getEmail());
+		assertEquals("password123", proprietaire.getPassword());
+		assertEquals("username", proprietaire.getUsername());
+		assertEquals("photo.jpg", proprietaire.getPhoto());
+		assertEquals("Biography", proprietaire.getBiographie());
 	}
-
-	@Test
-	public void testSetAndGetPhoto() {
-		String expectedPhoto = "newPhoto.jpg";
-		proprietaire.setPhoto(expectedPhoto);
-		assertEquals("Getter or setter for photo not working", expectedPhoto, proprietaire.getPhoto());
-	}
-
-	@Test
-	public void testSetAndGetBiographie() {
-		String expectedBiographie = "New biography";
-		proprietaire.setBiographie(expectedBiographie);
-		assertEquals("Getter or setter for biographie not working", expectedBiographie, proprietaire.getBiographie());
-	}
-
 }

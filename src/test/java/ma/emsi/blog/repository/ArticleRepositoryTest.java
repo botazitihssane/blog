@@ -49,41 +49,4 @@ public class ArticleRepositoryTest {
 		assertThat(articles).isNotNull().hasSize(1).contains(testArticle);
 	}
 
-	/*
-	 * @Test public void testFindById_existingId() { Article found =
-	 * articleRepository.findById(testArticle.getId()); assertNotNull(found);
-	 * assertEquals(testArticle.getId(), found.getId()); }
-	 * 
-	 * @Test public void testFindById_nonExistingId() { Article notFound =
-	 * articleRepository.findById(-1); assertNull(notFound); }
-	 * 
-	 * @Test public void testFindByDate_withArticles() { LocalDate testDate =
-	 * testArticle.getDate(); List<Article> articles =
-	 * articleRepository.findByDate(testDate); assertFalse(articles.isEmpty());
-	 * assertTrue(articles.stream().anyMatch(a -> a.getDate().equals(testDate))); }
-	 * 
-	 * @Test public void testFindByDate_noArticles() { List<Article> articles =
-	 * articleRepository.findByDate(LocalDate.of(2000, 1, 1));
-	 * assertTrue(articles.isEmpty()); }
-	 * 
-	 * @Test public void testFindByCategory() { List<Article> articles =
-	 * articleRepository.findByCategory(testArticle.getCategorie().getId());
-	 * assertFalse(articles.isEmpty()); assertTrue(articles.stream().anyMatch(a ->
-	 * a.getCategorie().getId() == testArticle.getCategorie().getId())); }
-	 * 
-	 * @Test public void testSearchByKeyword() { List<Article> articles =
-	 * articleRepository.searchByKeyword("Test"); assertFalse(articles.isEmpty());
-	 * assertTrue(articles.stream().anyMatch(a -> a.getTitre().contains("Test") ||
-	 * a.getTexte().contains("Test"))); }
-	 * 
-	 * @Test public void testSortByComments() { List<Article> sortedArticles =
-	 * articleRepository.sortByComments(); assertFalse(sortedArticles.isEmpty());
-	 * assertTrue(sortedArticles.get(0).getNombreCommentaire() >=
-	 * sortedArticles.get(1).getNombreCommentaire()); }
-	 * 
-	 * @Test public void testSortByDate() { List<Article> sortedArticles =
-	 * articleRepository.sortByDate(); assertFalse(sortedArticles.isEmpty());
-	 * assertTrue(sortedArticles.get(0).getDate().compareTo(sortedArticles.get(1).
-	 * getDate()) >= 0); }
-	 */
 }

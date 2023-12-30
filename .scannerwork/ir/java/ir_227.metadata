@@ -1,3 +1,0 @@
-ma.emsi.blog.service.impl.ArticleServiceImpl#searchByCategory(I)Ljava/util/List;
-==
-findByCategory ma.emsi.blog.repository.ArticleRepository#findByCategory(I)Ljava/util/List;

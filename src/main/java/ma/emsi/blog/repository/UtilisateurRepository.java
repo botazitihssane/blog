@@ -11,7 +11,6 @@ import ma.emsi.blog.model.Utilisateur;
 
 @Repository
 public interface UtilisateurRepository extends JpaRepository<Utilisateur, Integer> {
-
 	@Query("SELECT u FROM Utilisateur u WHERE u.id = :id")
 	Utilisateur findUtilisateurById(@Param("id") int id);
 

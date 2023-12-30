@@ -1,65 +1,45 @@
 package ma.emsi.blog.model;
 
 import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.Set;
+
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
 
 import org.junit.Before;
 import org.junit.Test;
 
 public class VisiteurTest {
 
-	private Visiteur visiteur;
+	private Validator validator;
 
 	@Before
 	public void setUp() {
-		visiteur = new Visiteur();
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		validator = factory.getValidator();
 	}
 
 	@Test
-	public void testDefaultConstructor() {
-		assertNotNull("Visiteur instance should not be null", visiteur);
-	}
+	public void testVisiteurValidation() {
+		// Given
+		Visiteur visiteur = new Visiteur();
+		visiteur.setNom("Test");
+		visiteur.setEmail("");
+		visiteur.setNombreCommentaire(-1);
 
-	@Test
-	public void testParameterizedConstructor() {
-		int id = 1;
-		String nom = "Test Nom";
-		String email = "test@example.com";
-		int nombreCommentaire = 5;
+		// When
+		Set<ConstraintViolation<Visiteur>> violations = validator.validate(visiteur);
 
-		Visiteur paramVisiteur = new Visiteur(id, nom, email, nombreCommentaire);
+		// Then
+		assertFalse(violations.isEmpty());
+		assertEquals(2, violations.size());
 
-		assertEquals("Id should be 1", 1, paramVisiteur.getId());
-		assertEquals("Nom should match", nom, paramVisiteur.getNom());
-		assertEquals("Email should match", email, paramVisiteur.getEmail());
-		assertEquals("Nombre de commentaire should be 5", 5, paramVisiteur.getNombreCommentaire());
-	}
-
-	@Test
-	public void testSetAndGetId() {
-		int expectedId = 10;
-		visiteur.setId(expectedId);
-		assertEquals("Getter or setter for id not working", expectedId, visiteur.getId());
-	}
-
-	@Test
-	public void testSetAndGetNom() {
-		String expectedNom = "New Nom";
-		visiteur.setNom(expectedNom);
-		assertEquals("Getter or setter for nom not working", expectedNom, visiteur.getNom());
-	}
-
-	@Test
-	public void testSetAndGetEmail() {
-		String expectedEmail = "newemail@example.com";
-		visiteur.setEmail(expectedEmail);
-		assertEquals("Getter or setter for email not working", expectedEmail, visiteur.getEmail());
-	}
-
-	@Test
-	public void testSetAndGetNombreCommentaire() {
-		int expectedNombreCommentaire = 10;
-		visiteur.setNombreCommentaire(expectedNombreCommentaire);
-		assertEquals("Getter or setter for nombreCommentaire not working", expectedNombreCommentaire,
-				visiteur.getNombreCommentaire());
+		for (ConstraintViolation<Visiteur> violation : violations) {
+			System.out.println(violation.getPropertyPath() + " " + violation.getMessage());
+		}
 	}
 }

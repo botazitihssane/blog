@@ -47,7 +47,7 @@ public class AuthTokenFilterTest {
 	}
 
 	@Test
-	public void testDoFilterInternal_ValidToken() throws Exception {
+	public void testDoFilterInternalValidToken() throws Exception {
 		String jwt = "validJwtToken";
 		String username = "testUser";
 
@@ -72,7 +72,7 @@ public class AuthTokenFilterTest {
 	}
 
 	@Test
-    public void testDoFilterInternal_InvalidToken() throws Exception {
+    public void testDoFilterInternalInvalidToken() throws Exception {
         when(request.getHeader("Authorization")).thenReturn("Bearer invalidJwtToken");
         when(jwtUtils.validateJwtToken(anyString())).thenReturn(false);
 

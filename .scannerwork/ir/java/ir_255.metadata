@@ -1,3 +1,0 @@
-ma.emsi.blog.controller.ProprietaireController#update(Lma/emsi/blog/model/Proprietaire;)LResponseEntity;
-==
-update ma.emsi.blog.service.ProprietaireService#update(Lma/emsi/blog/model/Proprietaire;)V

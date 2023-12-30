@@ -1,3 +1,0 @@
-ma.emsi.blog.service.impl.ArticleServiceImpl#sortByComments()Ljava/util/List;
-==
-sortByComments ma.emsi.blog.repository.ArticleRepository#sortByComments()Ljava/util/List;

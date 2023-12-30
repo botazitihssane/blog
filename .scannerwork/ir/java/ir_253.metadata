@@ -1,3 +1,0 @@
-ma.emsi.blog.controller.ProprietaireController#findAll()LResponseEntity;
-==
-findAll ma.emsi.blog.service.ProprietaireService#findAll()Ljava/util/List;

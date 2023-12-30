@@ -1,4 +1,0 @@
-ma.emsi.blog.service.impl.CommentaireServiceImpl#delete(I)V
-==
-deleteCommentaire ma.emsi.blog.service.ArticleService#deleteCommentaire(Lma/emsi/blog/model/Commentaire;)V
-findById ma.emsi.blog.service.impl.CommentaireServiceImpl#findById(I)Lma/emsi/blog/model/Commentaire;

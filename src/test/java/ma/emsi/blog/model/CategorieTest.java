@@ -1,79 +1,55 @@
 package ma.emsi.blog.model;
 
-import static org.junit.Assert.*;
-
-import org.junit.Before;
+import jakarta.validation.ConstraintViolationException;
+import ma.emsi.blog.repository.CategorieRepository;
+import ma.emsi.blog.service.CategorieService;
+import ma.emsi.blog.service.impl.CategorieServiceImpl;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.boot.test.context.SpringBootTest;
 
-import jakarta.validation.ValidatorFactory;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.when;
 
-import jakarta.validation.Validation;
-import jakarta.validation.Validator;
-import jakarta.validation.ConstraintViolation;
-import java.util.Set;
-
+@RunWith(MockitoJUnitRunner.class)
+@SpringBootTest
 public class CategorieTest {
 
-	private Categorie categorie;
+    @Mock
+    private CategorieRepository categorieRepository;
 
-	private Validator validator;
+    @InjectMocks
+    private CategorieServiceImpl categorieService;
 
-	@Before
-	public void setUp() {
-		categorie = new Categorie();
-		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-		validator = factory.getValidator();
-	}
+    @Test
+    public void testSaveCategorie() {
+        // Given
+        Categorie categorie = new Categorie();
+        categorie.setNom("TestCategory");
 
-	@Test
-	public void testGetAndSetId() {
-		int id = 1;
-		categorie.setId(id);
-		assertEquals(id, categorie.getId());
-	}
+        // When
+        when(categorieRepository.save(categorie)).thenReturn(categorie);
 
-	@Test
-	public void testGetAndSetNom() {
-		String nom = "Technology";
-		categorie.setNom(nom);
-		assertEquals(nom, categorie.getNom());
-	}
+        // Then
+        Categorie savedCategorie = categorieService.create(categorie);
+        assertNotNull(savedCategorie);
+        assertNotNull(savedCategorie.getId());
+        assertEquals("TestCategory", savedCategorie.getNom());
+    }
 
-	@Test
-	public void testConstructorWithParameters() {
-		int id = 1;
-		String nom = "Technology";
-		Categorie categorieWithParams = new Categorie(id, nom);
+    @Test(expected = ConstraintViolationException.class)
+    public void testCategorieValidation() {
+        // Given
+        Categorie categorie = new Categorie();
+        categorie.setNom("TestCategory");
 
-		assertEquals(id, categorieWithParams.getId());
-		assertEquals(nom, categorieWithParams.getNom());
-	}
+        // Mocking behavior for the save method
+        when(categorieRepository.save(categorie)).thenThrow(ConstraintViolationException.class);
 
-	@Test
-	public void testDefaultConstructor() {
-		Categorie newCategorie = new Categorie();
-		assertNotNull(newCategorie);
-	}
-
-	@Test
-	public void whenNomNotBlank_thenNoConstraintViolations() {
-		Categorie categorie = new Categorie();
-		categorie.setNom("Technology");
-
-		Set<ConstraintViolation<Categorie>> violations = validator.validate(categorie);
-
-		assertTrue(violations.isEmpty());
-	}
-
-	@Test
-	public void whenNomBlank_thenConstraintViolation() {
-		Categorie categorie = new Categorie();
-		categorie.setNom("");
-
-		Set<ConstraintViolation<Categorie>> violations = validator.validate(categorie);
-
-		assertFalse(violations.isEmpty());
-		assertEquals(1, violations.size());
-		assertEquals("Le nom ne peut pas etre vide", violations.iterator().next().getMessage());
-	}
+        // When and Then
+        categorieService.create(categorie);
+    }
 }

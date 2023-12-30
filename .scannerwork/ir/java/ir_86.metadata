@@ -1,8 +1,0 @@
-ma.emsi.blog.service.impl.CommentaireServiceImpl#update(Lma/emsi/blog/model/Commentaire;)V
-==
-getId ma.emsi.blog.model.Commentaire#getId()I
-findById ma.emsi.blog.service.impl.CommentaireServiceImpl#findById(I)Lma/emsi/blog/model/Commentaire;
-getDate ma.emsi.blog.model.Commentaire#getDate()Ljava/time/LocalDate;
-getTexte ma.emsi.blog.model.Commentaire#getTexte()Ljava/lang/String;
-setTexte ma.emsi.blog.model.Commentaire#setTexte(Ljava/lang/String;)V
-setDate ma.emsi.blog.model.Commentaire#setDate(Ljava/time/LocalDate;)V

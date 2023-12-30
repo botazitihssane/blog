@@ -1,3 +1,0 @@
-ma.emsi.blog.controller.ArticleController#findAll()LResponseEntity;
-==
-findAll ma.emsi.blog.service.ArticleService#findAll()Ljava/util/List;

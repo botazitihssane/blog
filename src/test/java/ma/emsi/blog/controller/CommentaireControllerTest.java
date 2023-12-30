@@ -24,6 +24,9 @@ import java.util.List;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CommentaireControllerTest {
+
+	private static final String TEST_COMMENT_TEXT = "Test Comment";
+
 	@InjectMocks
 	private CommentaireController commentaireController;
 
@@ -37,8 +40,8 @@ public class CommentaireControllerTest {
 
 	@Test
 	public void testFindAll() {
-		Commentaire commentaire1 = new Commentaire(1, "Comment 1", LocalDate.now(), null, null, null, null);
-		Commentaire commentaire2 = new Commentaire(2, "Comment 2", LocalDate.now(), null, null, null, null);
+		Commentaire commentaire1 = new Commentaire(1, TEST_COMMENT_TEXT, LocalDate.now(), null, null, null, null);
+		Commentaire commentaire2 = new Commentaire(2, TEST_COMMENT_TEXT, LocalDate.now(), null, null, null, null);
 		List<Commentaire> comments = new ArrayList<>();
 		comments.add(commentaire1);
 		comments.add(commentaire2);
@@ -51,13 +54,13 @@ public class CommentaireControllerTest {
 
 		List<Commentaire> returnedComments = response.getBody();
 		assertEquals(2, returnedComments.size());
-		assertEquals("Comment 1", returnedComments.get(0).getTexte());
-		assertEquals("Comment 2", returnedComments.get(1).getTexte());
+		assertEquals(TEST_COMMENT_TEXT, returnedComments.get(0).getTexte());
+		assertEquals(TEST_COMMENT_TEXT, returnedComments.get(1).getTexte());
 	}
 
 	@Test
 	public void testFindCommentaireById() {
-		Commentaire commentaire = new Commentaire(1, "Test Comment", LocalDate.now(), null, null, null, null);
+		Commentaire commentaire = new Commentaire(1, TEST_COMMENT_TEXT, LocalDate.now(), null, null, null, null);
 		when(commentaireService.findById(1)).thenReturn(commentaire);
 
 		ResponseEntity<Commentaire> response = commentaireController.findcommentaire(1);
@@ -66,7 +69,7 @@ public class CommentaireControllerTest {
 
 		Commentaire returnedCommentaire = response.getBody();
 		assertNotNull(returnedCommentaire);
-		assertEquals("Test Comment", returnedCommentaire.getTexte());
+		assertEquals(TEST_COMMENT_TEXT, returnedCommentaire.getTexte());
 	}
 
 	@Test
@@ -102,7 +105,7 @@ public class CommentaireControllerTest {
 
 	@Test
 	    public void testDeleteCommentaire() {
-	        when(commentaireService.findById(1)).thenReturn(new Commentaire(1, "Test Comment", LocalDate.now(), null, null, null, null));
+	        when(commentaireService.findById(1)).thenReturn(new Commentaire(1, TEST_COMMENT_TEXT, LocalDate.now(), null, null, null, null));
 
 	        ResponseEntity<Void> response = commentaireController.delete(1);
 

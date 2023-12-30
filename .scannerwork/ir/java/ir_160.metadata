@@ -1,3 +1,0 @@
-ma.emsi.blog.controller.CategorieController#delete(I)LResponseEntity;
-==
-delete ma.emsi.blog.service.CategorieService#delete(I)V
