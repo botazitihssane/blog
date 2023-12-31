@@ -24,8 +24,10 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Override
 	public void update(Article a) {
-		Article newArticle = findById(a.getId());
+		Article newArticle = findById(a.getId());			System.out.println(newArticle);
+		System.out.println(a);
 		if (newArticle != null) {
+			System.out.println(newArticle);
 			newArticle.setCategorie(a.getCategorie());
 			newArticle.setDate(a.getDate());
 			newArticle.setLien(a.getLien());

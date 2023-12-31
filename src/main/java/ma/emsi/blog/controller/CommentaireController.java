@@ -37,6 +37,12 @@ public class CommentaireController {
 		return ResponseEntity.ok().body(result);
 	}
 
+	@GetMapping(value = "/commentaire/article/{id}", produces = { "application/json", "application/xml" })
+	public ResponseEntity<List<Commentaire>> findByArticles(@PathVariable int id) {
+		List<Commentaire> result = commentaireService.findByArticle(id);
+		return ResponseEntity.ok().body(result);
+	}
+
 	@GetMapping(value = "/commentaire/id/{id}", produces = { "application/json", "application/xml" })
 	public ResponseEntity<Commentaire> findcommentaire(@PathVariable int id) {
 		Commentaire result = commentaireService.findById(id);

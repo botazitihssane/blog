@@ -14,4 +14,6 @@ public interface CommentaireService {
 	List<Commentaire> findAll();
 
 	Commentaire findById(int id);
+
+	List<Commentaire> findByArticle(int id);
 }

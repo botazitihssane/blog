@@ -72,4 +72,9 @@ public class CommentaireServiceImpl implements CommentaireService {
 		return commentaireRepository.findById(id);
 	}
 
+	@Override
+	public List<Commentaire> findByArticle(int id) {
+		return commentaireRepository.findByArticle(id);
+	}
+
 }

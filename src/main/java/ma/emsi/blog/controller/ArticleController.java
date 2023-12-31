@@ -43,37 +43,34 @@ public class ArticleController {
 		Article result = articleService.findById(id);
 		return ResponseEntity.ok().body(result);
 	}
-
-	@GetMapping(value = "/article/categorie/{id}", produces = { "application/json", "application/xml" }, consumes = {
-			"application/json", "application/xml" })
+	@GetMapping(value = "/article/categorie/{id}", produces = { "application/json", "application/xml" })
 	public ResponseEntity<List<Article>> findArticleByCategorie(@PathVariable int id) {
 		List<Article> result = articleService.searchByCategory(id);
 		return ResponseEntity.ok().body(result);
 	}
 
-	@GetMapping(value = "/article/sort/date", produces = { "application/json", "application/xml" }, consumes = {
-			"application/json", "application/xml" })
+
+	@GetMapping(value = "/article/sort/date", produces = { "application/json", "application/xml" })
 	public ResponseEntity<List<Article>> sortByDate() {
 		List<Article> result = articleService.sortByDate();
 		return ResponseEntity.ok().body(result);
 	}
 
-	@GetMapping(value = "/article/sort/comments", produces = { "application/json", "application/xml" }, consumes = {
-			"application/json", "application/xml" })
+	@GetMapping(value = "/article/sort/comments", produces = { "application/json", "application/xml" })
 	public ResponseEntity<List<Article>> sortByComments() {
 		List<Article> result = articleService.sortByComments();
 		return ResponseEntity.ok().body(result);
 	}
 
 	@GetMapping(value = "/article/search/keyword/{keyword}", produces = { "application/json",
-			"application/xml" }, consumes = { "application/json", "application/xml" })
+			"application/xml" })
 	public ResponseEntity<List<Article>> sortByComments(@PathVariable String keyword) {
 		List<Article> result = articleService.searchByKeyword(keyword);
 		return ResponseEntity.ok().body(result);
 	}
 
 	@GetMapping(value = "/article/search/date/{date}", produces = { "application/json",
-			"application/xml" }, consumes = { "application/json", "application/xml" })
+			"application/xml" })
 	public ResponseEntity<List<Article>> sortByComments(@PathVariable LocalDate date) {
 		List<Article> result = articleService.findByDate(date);
 		return ResponseEntity.ok().body(result);
