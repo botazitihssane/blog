@@ -1,9 +1,7 @@
 package ma.emsi.blog.controller;
 
-import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.when;
+import ma.emsi.blog.model.Article;
+import ma.emsi.blog.service.ArticleService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -11,11 +9,15 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import ma.emsi.blog.model.Article;
-import ma.emsi.blog.service.ArticleService;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
 
 public class ArticleControllerTest {
 
@@ -33,12 +35,12 @@ public class ArticleControllerTest {
     @Test
     public void testAddArticle() {
         Article newArticle = Article.builder()
-                                .id(1)
-                                .titre("Test Article")
-                                .texte("This is a test article.")
-                                .photo("test.jpg")
-                                .date(LocalDate.now())
-                                .build();
+                .id(1)
+                .titre("Test Article")
+                .texte("This is a test article.")
+                .photo("test.jpg")
+                .date(LocalDate.now())
+                .build();
         doNothing().when(articleService).create(any(Article.class));
 
         ResponseEntity<Void> response = articleController.add(newArticle);
@@ -64,13 +66,13 @@ public class ArticleControllerTest {
 
     @Test
     public void testGetArticleById() {
-        Article article =Article.builder()
-                            .id(1)
-                            .titre("Test Article")
-                            .texte("This is a test article.")
-                            .photo("test.jpg")
-                            .date(LocalDate.now())
-                            .build();
+        Article article = Article.builder()
+                .id(1)
+                .titre("Test Article")
+                .texte("This is a test article.")
+                .photo("test.jpg")
+                .date(LocalDate.now())
+                .build();
         when(articleService.findById(1)).thenReturn(article);
 
         ResponseEntity<Article> expectedResponse = ResponseEntity.ok(article);
@@ -84,12 +86,12 @@ public class ArticleControllerTest {
     @Test
     public void testUpdateArticle() {
         Article updatedArticle = Article.builder()
-                                    .id(1)
-                                    .titre("Updated Article")
-                                    .texte("This is an updated article.")
-                                    .photo("updated.jpg")
-                                    .date(LocalDate.now())
-                                    .build();
+                .id(1)
+                .titre("Updated Article")
+                .texte("This is an updated article.")
+                .photo("updated.jpg")
+                .date(LocalDate.now())
+                .build();
         doNothing().when(articleService).update(any(Article.class));
 
         ResponseEntity<Void> response = articleController.update(updatedArticle);

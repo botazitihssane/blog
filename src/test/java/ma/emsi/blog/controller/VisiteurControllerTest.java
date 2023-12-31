@@ -1,7 +1,7 @@
 package ma.emsi.blog.controller;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.when;
+import ma.emsi.blog.model.Visiteur;
+import ma.emsi.blog.service.VisiteurService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -9,41 +9,44 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
 import java.util.ArrayList;
 import java.util.List;
-import ma.emsi.blog.model.Visiteur;
-import ma.emsi.blog.service.VisiteurService;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.mockito.Mockito.when;
 
 public class VisiteurControllerTest {
 
-	private static final String TEST_VISITEUR_NOM = "Visiteur Test";
-	private static final String TEST_VISITEUR_EMAIL = "visiteur.com";
+    private static final String TEST_VISITEUR_NOM = "Visiteur Test";
+    private static final String TEST_VISITEUR_EMAIL = "visiteur.com";
 
-	@Mock
-	private VisiteurService visiteurService;
+    @Mock
+    private VisiteurService visiteurService;
 
-	@InjectMocks
-	private VisiteurController visiteurController;
+    @InjectMocks
+    private VisiteurController visiteurController;
 
-	@Before
-	public void setup() {
-		MockitoAnnotations.initMocks(this);
-	}
+    @Before
+    public void setup() {
+        MockitoAnnotations.initMocks(this);
+    }
 
-	@Test
-	public void testGetVisiteurById() {
-		Visiteur visiteur = new Visiteur(1, TEST_VISITEUR_NOM, TEST_VISITEUR_EMAIL, 5);
-		when(visiteurService.findById(1)).thenReturn(visiteur);
+    @Test
+    public void testGetVisiteurById() {
+        Visiteur visiteur = new Visiteur(1, TEST_VISITEUR_NOM, TEST_VISITEUR_EMAIL, 5);
+        when(visiteurService.findById(1)).thenReturn(visiteur);
 
-		ResponseEntity<Visiteur> expectedResponse = ResponseEntity.ok(visiteur);
+        ResponseEntity<Visiteur> expectedResponse = ResponseEntity.ok(visiteur);
 
-		ResponseEntity<Visiteur> response = visiteurController.getById(1);
+        ResponseEntity<Visiteur> response = visiteurController.getById(1);
 
-		assertEquals(expectedResponse.getStatusCode(), response.getStatusCode());
-		assertEquals(expectedResponse.getBody(), response.getBody());
-	}
+        assertEquals(expectedResponse.getStatusCode(), response.getStatusCode());
+        assertEquals(expectedResponse.getBody(), response.getBody());
+    }
 
-	@Test
+    @Test
     public void testGetVisiteurByIdNotFound() {
         when(visiteurService.findById(1)).thenReturn(null);
 
@@ -53,20 +56,20 @@ public class VisiteurControllerTest {
         assertNull(response.getBody());
     }
 
-	@Test
-	public void testGetVisiteurByNom() {
-		Visiteur visiteur = new Visiteur(1, TEST_VISITEUR_NOM, TEST_VISITEUR_EMAIL, 5);
-		when(visiteurService.findByNom(TEST_VISITEUR_NOM)).thenReturn(visiteur);
+    @Test
+    public void testGetVisiteurByNom() {
+        Visiteur visiteur = new Visiteur(1, TEST_VISITEUR_NOM, TEST_VISITEUR_EMAIL, 5);
+        when(visiteurService.findByNom(TEST_VISITEUR_NOM)).thenReturn(visiteur);
 
-		ResponseEntity<Visiteur> expectedResponse = ResponseEntity.ok(visiteur);
+        ResponseEntity<Visiteur> expectedResponse = ResponseEntity.ok(visiteur);
 
-		ResponseEntity<Visiteur> response = visiteurController.getByNom(TEST_VISITEUR_NOM);
+        ResponseEntity<Visiteur> response = visiteurController.getByNom(TEST_VISITEUR_NOM);
 
-		assertEquals(expectedResponse.getStatusCode(), response.getStatusCode());
-		assertEquals(expectedResponse.getBody(), response.getBody());
-	}
+        assertEquals(expectedResponse.getStatusCode(), response.getStatusCode());
+        assertEquals(expectedResponse.getBody(), response.getBody());
+    }
 
-	@Test
+    @Test
     public void testGetVisiteurByNomNotFound() {
         when(visiteurService.findByNom(TEST_VISITEUR_NOM)).thenReturn(null);
 
@@ -76,20 +79,20 @@ public class VisiteurControllerTest {
         assertNull(response.getBody());
     }
 
-	@Test
-	public void testGetVisiteurByEmail() {
-		Visiteur visiteur = new Visiteur(1, TEST_VISITEUR_NOM, TEST_VISITEUR_EMAIL, 5);
-		when(visiteurService.findByEmail(TEST_VISITEUR_EMAIL)).thenReturn(visiteur);
+    @Test
+    public void testGetVisiteurByEmail() {
+        Visiteur visiteur = new Visiteur(1, TEST_VISITEUR_NOM, TEST_VISITEUR_EMAIL, 5);
+        when(visiteurService.findByEmail(TEST_VISITEUR_EMAIL)).thenReturn(visiteur);
 
-		ResponseEntity<Visiteur> expectedResponse = ResponseEntity.ok(visiteur);
+        ResponseEntity<Visiteur> expectedResponse = ResponseEntity.ok(visiteur);
 
-		ResponseEntity<Visiteur> response = visiteurController.getByEmail(TEST_VISITEUR_EMAIL);
+        ResponseEntity<Visiteur> response = visiteurController.getByEmail(TEST_VISITEUR_EMAIL);
 
-		assertEquals(expectedResponse.getStatusCode(), response.getStatusCode());
-		assertEquals(expectedResponse.getBody(), response.getBody());
-	}
+        assertEquals(expectedResponse.getStatusCode(), response.getStatusCode());
+        assertEquals(expectedResponse.getBody(), response.getBody());
+    }
 
-	@Test
+    @Test
     public void testGetVisiteurByEmailNotFound() {
         when(visiteurService.findByEmail(TEST_VISITEUR_EMAIL)).thenReturn(null);
 
@@ -99,22 +102,22 @@ public class VisiteurControllerTest {
         assertNull(response.getBody());
     }
 
-	@Test
-	public void testGetAllVisiteurs() {
-		Visiteur visiteur1 = new Visiteur(1, TEST_VISITEUR_NOM, TEST_VISITEUR_EMAIL, 5);
-		Visiteur visiteur2 = new Visiteur(2, "Alice Smith", "alice@example.com", 3);
+    @Test
+    public void testGetAllVisiteurs() {
+        Visiteur visiteur1 = new Visiteur(1, TEST_VISITEUR_NOM, TEST_VISITEUR_EMAIL, 5);
+        Visiteur visiteur2 = new Visiteur(2, "Alice Smith", "alice@example.com", 3);
 
-		List<Visiteur> visiteurs = new ArrayList<>();
-		visiteurs.add(visiteur1);
-		visiteurs.add(visiteur2);
+        List<Visiteur> visiteurs = new ArrayList<>();
+        visiteurs.add(visiteur1);
+        visiteurs.add(visiteur2);
 
-		when(visiteurService.findAll()).thenReturn(visiteurs);
+        when(visiteurService.findAll()).thenReturn(visiteurs);
 
-		ResponseEntity<List<Visiteur>> expectedResponse = ResponseEntity.ok(visiteurs);
+        ResponseEntity<List<Visiteur>> expectedResponse = ResponseEntity.ok(visiteurs);
 
-		ResponseEntity<List<Visiteur>> response = visiteurController.findAll();
+        ResponseEntity<List<Visiteur>> response = visiteurController.findAll();
 
-		assertEquals(expectedResponse.getStatusCode(), response.getStatusCode());
-		assertEquals(expectedResponse.getBody(), response.getBody());
-	}
+        assertEquals(expectedResponse.getStatusCode(), response.getStatusCode());
+        assertEquals(expectedResponse.getBody(), response.getBody());
+    }
 }

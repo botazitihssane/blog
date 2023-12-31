@@ -22,7 +22,7 @@ public class CorsConfigTest {
     @Test
     public void corsHeadersShouldBePresent() throws Exception {
         mockMvc.perform(options("/blog/auth").header("Origin", "http://localhost:3000"))
-               .andExpect(header().exists("Access-Control-Allow-Origin"))
-               .andExpect(header().string("Access-Control-Allow-Origin", "http://localhost:3000"));
+                .andExpect(header().exists("Access-Control-Allow-Origin"))
+                .andExpect(header().string("Access-Control-Allow-Origin", "http://localhost:3000"));
     }
 }

@@ -2,7 +2,6 @@ package ma.emsi.blog.model;
 
 import jakarta.validation.ConstraintViolationException;
 import ma.emsi.blog.repository.CategorieRepository;
-import ma.emsi.blog.service.CategorieService;
 import ma.emsi.blog.service.impl.CategorieServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,7 +10,8 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)

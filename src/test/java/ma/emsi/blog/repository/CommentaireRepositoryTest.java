@@ -1,12 +1,11 @@
 package ma.emsi.blog.repository;
 
-import static org.junit.Assert.*;
-
+import ma.emsi.blog.model.Commentaire;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import ma.emsi.blog.model.Commentaire;
+import static org.junit.Assert.assertNotNull;
 
 public class CommentaireRepositoryTest {
 

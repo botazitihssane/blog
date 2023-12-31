@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserInfoResponse {
-	private int id;
-	private String username;
-	private String email;
+    private int id;
+    private String username;
+    private String email;
 
 
 }
